@@ -6,7 +6,7 @@ import { Toast } from './Toast';
 import { UserContext } from '../context/UserContext';
 
 const PostEmpleados = () => {
-  const { userState: { token }, setEmployees, socket } = useContext(UserContext);
+  const { userState: { token }, setEmployees } = useContext(UserContext);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -48,7 +48,6 @@ const PostEmpleados = () => {
           title: 'Empleado creado con éxito'
         });
         setEmployees(valorPrevio => [...valorPrevio, payload]);
-        socket.emit('employees', payload);
         handleClose();
       } else {
         Toast.fire({

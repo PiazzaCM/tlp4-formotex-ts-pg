@@ -8,7 +8,7 @@ import { UserContext } from "../context/UserContext";
 
 function CreateProductForm() {
   
-  const { userState: { token }, setProducts, socket } = useContext(UserContext);
+  const { userState: { token }, setProducts} = useContext(UserContext);
 
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -57,7 +57,6 @@ function CreateProductForm() {
         title: 'Producto creado con éxito'
       });
       setProducts(valorPrevio => [...valorPrevio, payload]);
-      socket.emit('products', payload);
       return handleClose();
     }
   };
