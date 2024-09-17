@@ -6,6 +6,11 @@ import { UserModel } from './user.model';
 class RolModel extends Model<Role> {
     public declare id_rol: number;
     public declare name: string;
+
+    static async initializeRoles() {
+        await RolModel.findOrCreate({ where: { name: 'admin' } });
+        await RolModel.findOrCreate({ where: { name: 'empleado' } });
+    }
 }
 
 RolModel.init({
@@ -26,11 +31,13 @@ RolModel.init({
 
 RolModel.hasMany(UserModel, {
     foreignKey: 'id_rol',
-})
+});
 
 UserModel.belongsTo(RolModel, {
     foreignKey: 'id_rol',
-})
+});
+
+
+RolModel.initializeRoles().catch(error => console.log('Error al inicializar roles:', error));
 
 export { RolModel };
-
