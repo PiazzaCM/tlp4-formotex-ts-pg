@@ -5,7 +5,7 @@ export const sequelize = new Sequelize(URI);
 
 export async function connectDB() {
   try {
-    await sequelize.sync({ force: true });
+    await sequelize.sync({ force: false });
     
 
     console.log('Database connected successfully.');

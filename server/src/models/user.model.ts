@@ -1,13 +1,13 @@
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../db/connection';
 import { User } from '../interfaces/user.interface';
-import { OrganizacionModel } from './organization.model';
 
 class UserModel extends Model<User> {
     public declare id_usuario: number;
     public declare username: string;
     public declare email: string;
     public declare password: string;
+    public declare id_rol: number;
 }
 
 UserModel.init({
@@ -23,23 +23,20 @@ UserModel.init({
     },
     email: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     password: {
         type: DataTypes.STRING,
+        allowNull: false
+    },
+    id_rol: {
+        type: DataTypes.INTEGER,
         allowNull: false
     }
 }, {
     sequelize,
     tableName: 'usuarios'
 });
-
-UserModel.hasMany(OrganizacionModel, {
-    foreignKey: 'id_usuario',
-})
-
-OrganizacionModel.belongsTo(UserModel, {
-    foreignKey: 'id_usuario',
-})
 
 export { UserModel };

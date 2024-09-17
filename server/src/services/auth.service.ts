@@ -14,8 +14,8 @@ class AuthService {
     return await bcrypt.hash(password, 10);
   }
 
-  async login(username: string, password: string) {
-    const user = await UserModel.findOne({ where: {username} });
+  async login(email: string, password: string) {
+    const user = await UserModel.findOne({ where: {email} });
 
     if (!user) throw new Error("Usuario no encontrado");
 
