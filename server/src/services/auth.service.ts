@@ -30,6 +30,22 @@ class AuthService {
     return await UserModel.findOne({ where: { id_usuario } });
   }
 
+  async updateEmployee(id_usuario: number, employeeData: any) {
+    const employee = await UserModel.findOne({ where: { id_usuario } });
+    if (employee) {
+      return await employee.update(employeeData);
+    }
+    return null;
+  }
+
+  async deleteEmployee(id_usuario: number) {
+    const employee = await UserModel.findOne({ where: { id_usuario } });
+    if (employee) {
+      return await employee.destroy();
+    }
+    return false;
+  }
+
   async getEmployeesByRole(roleId: number) {
     return await UserModel.findAll({
       attributes: ['username', 'email'],

@@ -1,6 +1,7 @@
 import React from 'react';
 import Sidebar from '../components/Sidebar';
 import '../components/css/Dispositivos.css';
+import CreateProductForm from '../components/PostProduct';
 
 const Dispositivos = () => {
   return (
@@ -8,7 +9,7 @@ const Dispositivos = () => {
       <div className='dispositivos'>
         <div className='dispositivos-header'>
           <h1>Dispositivos Informáticos</h1>
-          <button className='btn btn-primary'>Agregar Dispositivo</button>
+          <button className='btn btn-primary'><CreateProductForm/></button>
         </div>
 
         <div className='dispositivos-container'>
@@ -27,7 +28,6 @@ const Dispositivos = () => {
                   <td>12</td>
                   <td>
                     <button className='btn btn-secondary'>Editar</button>
-                    <button className='btn btn-success'>Asignar</button>
                     <button className='btn btn-danger'>Eliminar</button>
                   </td>
                 </tr>
@@ -36,7 +36,6 @@ const Dispositivos = () => {
                   <td>8</td>
                   <td>
                     <button className='btn btn-secondary'>Editar</button>
-                    <button className='btn btn-success'>Asignar</button>
                     <button className='btn btn-danger'>Eliminar</button>
                   </td>
                 </tr>

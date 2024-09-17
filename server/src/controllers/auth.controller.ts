@@ -60,3 +60,35 @@ export const getEmployees = async (req: Request, res: Response) => {
     return res.status(500).json({ message: 'Error al obtener empleados' });
   }
 };
+
+
+export const updateEmployee = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const employeeData = req.body;
+  try {
+    const updatedEmployee = await authService.updateEmployee(parseInt(id), employeeData);
+    if (updatedEmployee) {
+      return res.json(updatedEmployee);
+    } else {
+      return res.status(404).json({ message: 'Empleado no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error al actualizar empleado' });
+  }
+};
+
+export const deleteEmployee = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const deleted = await authService.deleteEmployee(parseInt(id));
+    if (deleted) {
+      return res.json({ message: 'Empleado eliminado con éxito' });
+    } else {
+      return res.status(404).json({ message: 'Empleado no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: 'Error al eliminar empleado' });
+  }
+};

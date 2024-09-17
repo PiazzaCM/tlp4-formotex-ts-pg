@@ -18,7 +18,7 @@
   .organizaciones-header .btn-primary {
     border-color: #007bff;
     background-color: #332887;
-    padding: 10px 20px;
+
     font-size: 1rem;
     width: max-content;
   }
@@ -67,7 +67,6 @@
   }
   
   .organizaciones-table .btn {
-    padding: 8px 16px;
+  
     font-size: 0.875rem;
   }
-  
