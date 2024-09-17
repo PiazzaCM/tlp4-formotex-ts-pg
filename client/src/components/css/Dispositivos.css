@@ -1,0 +1,78 @@
+.dispositivos {
+    padding: 20px;
+    min-height: 100vh; /* Para cubrir toda la pantalla */
+}
+
+.dispositivos-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.dispositivos-header h1 {
+    font-size: 2rem;
+    color: #343a40; /* Texto oscuro */
+}
+
+.dispositivos-header .btn-primary {
+    border-color: #007bff;
+    background-color: #332887;
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: max-content;
+}
+
+.dispositivos-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    min-height: 70vh;
+}
+
+.dispositivos-table {
+    margin-top: 20px;
+}
+
+.dispositivos-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.dispositivos-table th, 
+.dispositivos-table td {
+    padding: 15px;
+    text-align: left;
+}
+
+.dispositivos-table th {
+    color: #000000;
+    font-weight: bold;
+}
+
+.dispositivos-table td {
+    background-color: #f8f9fa;
+}
+
+.dispositivos-table .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    margin-right: 10px;
+}
+
+.dispositivos-table .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+    margin-right: 10px;
+}
+
+.dispositivos-table .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.dispositivos-table .btn {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+}

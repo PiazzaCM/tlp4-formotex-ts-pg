@@ -1,0 +1,72 @@
+.empleados {
+    padding: 20px;
+    min-height: 100vh; /* Para cubrir toda la pantalla */
+}
+
+.empleados-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.empleados-header h1 {
+    font-size: 2rem;
+    color: #343a40; /* Texto oscuro */
+}
+
+.empleados-header .btn-primary {
+    border-color: #007bff;
+    background-color: #332887;
+    padding: 10px 20px;
+    font-size: 1rem;
+    width: max-content;
+}
+
+.empleados-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    min-height: 70vh;
+}
+
+.empleados-table {
+    margin-top: 20px;
+}
+
+.empleados-table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.empleados-table th, 
+.empleados-table td {
+    padding: 15px;
+    text-align: left;
+}
+
+.empleados-table th {
+    color: #000000;
+    font-weight: bold;
+}
+
+.empleados-table td {
+    background-color: #f8f9fa;
+}
+
+.empleados-table .btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    margin-right: 10px;
+}
+
+.empleados-table .btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.empleados-table .btn {
+    padding: 8px 16px;
+    font-size: 0.875rem;
+}
