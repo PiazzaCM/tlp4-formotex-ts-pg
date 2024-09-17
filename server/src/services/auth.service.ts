@@ -25,6 +25,19 @@ class AuthService {
 
     return await generarJWT({ uid: user.id_usuario });
   }
+
+  async getUserById(id_usuario: number) {
+    return await UserModel.findOne({ where: { id_usuario } });
+  }
+
+  async getEmployeesByRole(roleId: number) {
+    return await UserModel.findAll({
+      attributes: ['username', 'email'],
+      where: {
+        id_rol: roleId
+      }
+    });
+  }
 }
 
 export default new AuthService();
