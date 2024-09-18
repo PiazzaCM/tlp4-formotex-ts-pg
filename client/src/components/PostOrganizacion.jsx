@@ -3,37 +3,33 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { Toast } from "./Toast";
-import LoadingButton from "./LoadingButtom"; 
+import LoadingButton from "./LoadingButtom";  
 import { UserContext } from "../context/UserContext";
 
 function CreateOrganizationForm() {
-
   const { userState: { token }, setOrganizations } = useContext(UserContext);
 
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const [form, setForm] = useState({
     name: "",
     email: "",
   });
 
-  const handleChange = (e) => {
-    const { target } = e;
-    const { value, name } = target;
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-    setForm({
-      ...form,
+  const handleChange = ({ target: { name, value } }) => {
+    setForm(prevForm => ({
+      ...prevForm,
       [name]: value,
-    });
+    }));
   };
 
   const createOrganization = async () => {
     setLoading(true);
     try {
-      const peticion = await fetch("http://localhost:3000/api/organization", {
+      const response = await fetch("http://localhost:3000/api/organization", {
         method: "POST",
         body: JSON.stringify(form),
         headers: {
@@ -41,14 +37,14 @@ function CreateOrganizationForm() {
           token,
         },
       });
-      const payload = await peticion.json();
+      const payload = await response.json();
 
-      if (peticion.ok) {
+      if (response.ok) {
         Toast.fire({
           icon: 'success',
           title: 'Organización creada con éxito'
         });
-        setOrganizations(valorPrevio => [...valorPrevio, payload]);
+        setOrganizations(prev => [...prev, payload]);
         handleClose();
       } else {
         Toast.fire({
@@ -56,7 +52,7 @@ function CreateOrganizationForm() {
           title: 'Error al crear organización'
         });
       }
-    } catch (error) {
+    } catch {
       Toast.fire({
         icon: 'error',
         title: 'Error al crear organización'
@@ -69,8 +65,7 @@ function CreateOrganizationForm() {
   return (
     <>
       <a className="nav-link" onClick={handleShow}>
-        {" "}
-        Crear Organización{" "}
+        Crear Organización
       </a>
 
       <Modal dialogClassName="modal-xl" show={show} onHide={handleClose}>
