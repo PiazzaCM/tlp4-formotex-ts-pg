@@ -3,12 +3,12 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import { Toast } from "./Toast";
-import LoadingButton from "./LoadingButtom";
+import LoadingButton from "./LoadingButtom"; 
 import { UserContext } from "../context/UserContext";
 
 function CreateOrganizationForm() {
 
-  const { userState: { token }, setOrganizations, socket } = useContext(UserContext);
+  const { userState: { token }, setOrganizations } = useContext(UserContext);
 
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -30,37 +30,39 @@ function CreateOrganizationForm() {
     });
   };
 
-  const handleImage = ({ target }) => {
-    setForm({ ...form, image: target.files[0] });
-  }
-
   const createOrganization = async () => {
     setLoading(true);
-    const formData = new FormData();
-
-    for (const key in form) {
-      formData.append(key, form[key]);
-    }
-
-    const peticion = await fetch("http://localhost:3000/api/organization", {
-      method: "POST",
-      body: formData,
-      headers: {
-        token
-      }
-    });
-    setLoading(false);
-
-    const payload = await peticion.json();
-
-    if (peticion.ok) {
-      Toast.fire({
-        icon: 'success',
-        title: 'Organización creada con éxito'
+    try {
+      const peticion = await fetch("http://localhost:3000/api/organization", {
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: {
+          "Content-Type": "application/json",
+          token,
+        },
       });
-      setOrganizations(valorPrevio => [...valorPrevio, payload]);
-      socket.emit('organizations', payload);
-      return handleClose();
+      const payload = await peticion.json();
+
+      if (peticion.ok) {
+        Toast.fire({
+          icon: 'success',
+          title: 'Organización creada con éxito'
+        });
+        setOrganizations(valorPrevio => [...valorPrevio, payload]);
+        handleClose();
+      } else {
+        Toast.fire({
+          icon: 'error',
+          title: 'Error al crear organización'
+        });
+      }
+    } catch (error) {
+      Toast.fire({
+        icon: 'error',
+        title: 'Error al crear organización'
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
