@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import CreateProductForm from "../components/PostProduct";
-import Sidebar from '../components/Sidebar';
-import { Toast } from "../components/Toast";
-import '../components/css/Dispositivos.css';
+import Sidebar from "../components/Sidebar";
+import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../context/UserContext";
-import UpdateProductForm from '../components/UpdateProduct';
+import { Toast } from "../components/Toast";
+import UpdateProductForm from "../components/UpdateProduct";
 
-const Dispositivos = () => {
+const Organizacion = () => {
+  const { id } = useParams();
   const { userState: { token } } = useContext(UserContext);
 
   const [equipamiento, setEquipamiento] = useState([]);
 
   const fetchEquipamiento = async () => {
-    const response = await fetch(`http://localhost:3000/api/products`,
+    const response = await fetch(`http://localhost:3000/api/products/organizations/${id}`,
       {
         headers: { token },
       }
@@ -57,7 +57,9 @@ const Dispositivos = () => {
       <div className="dispositivos">
         <div className="dispositivos-header">
           <h1>Dispositivos Informáticos</h1>
-       
+          <button className="btn btn-primary">
+            <CreateProductForm {...{setEquipamiento}}/>
+          </button>
         </div>
 
         <div className="dispositivos-container">
@@ -69,7 +71,6 @@ const Dispositivos = () => {
                   <th>Estado</th>
                   <th>Stock Disponible</th>
                   <th>Adquirido el</th>
-                  <th>Organizacion</th>
                   <th>Acciones</th>
                 </tr>
               </thead>
@@ -81,9 +82,8 @@ const Dispositivos = () => {
                     <td>{equipamiento.status}</td>
                     <td>{equipamiento.availableStock}</td>
                     <td>{new Date(equipamiento.adquisitionDay).toLocaleDateString('es')}</td>
-                    <td>{equipamiento.OrganizacionModel.name}</td>
                     <td>
-                      <button button className="btn btn-secondary"><UpdateProductForm {...{equipamiento, setEquipamiento}}/></button>
+                      <button className="btn btn-secondary"><UpdateProductForm {...{equipamiento, setEquipamiento}}/></button>
                       <button className="btn btn-danger" onClick={()=>deleteEquipamiento(equipamiento.id_producto)}>Eliminar</button>
                     </td>
                   </tr>
@@ -98,4 +98,4 @@ const Dispositivos = () => {
   );
 };
 
-export default Dispositivos;
+export default Organizacion;

@@ -3,40 +3,36 @@ import { OrganizacionModel } from "../models/organization.model";
 import { ProductosModel } from "../models/product.model";
 
 class OrganizationService {
-  async create(organization: Organization, id_usuario: number) {
-    return await OrganizacionModel.create({...organization, id_usuario});
+  async create(organization: Organization) {
+    return await OrganizacionModel.create({...organization});
   }
 
-  async getAll(id_usuario: number) {
+  async getAll() {
     return await OrganizacionModel.findAll({
       where: {
-        id_usuario
-      }, include: [{model: ProductosModel}]
+      }, include: [ProductosModel]
     });
   }
 
-  async getById(id_organizacion: string, id_usuario: number) {
+  async getById(id_organizacion: string) {
     return await OrganizacionModel.findOne({
       where: {
-        id_usuario,
         id_organizacion,
       },
       include: [ProductosModel]
     });
   }
 
-  async update(id_organizacion: string, organization: Organization, id_usuario: number) {
+  async update(id_organizacion: string, organization: Organization) {
     return await OrganizacionModel.update(organization, {
       where: {
-        id_usuario,
         id_organizacion,
       }, returning: true
     });
   }
  
-  async delete(id_organizacion: string, id_usuario: number) {
+  async delete(id_organizacion: string) {
     return await OrganizacionModel.destroy({where: {
-      id_usuario,
       id_organizacion,
     }});
   }

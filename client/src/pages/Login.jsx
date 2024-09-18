@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../components/css/Login.css";
+import { UserContext } from "../context/UserContext";
+import { userTypes } from "../context/userTypes";
 
 const Login = () => {
+
+  const { userDispatch } = useContext(UserContext);
+
   const navigate = useNavigate();
   const [form, setForm] = useState({
     email: "",
@@ -43,6 +48,10 @@ const Login = () => {
       setLoading(false);
 
       if (response.ok) {
+        userDispatch({
+          type: userTypes.login,
+          payload: data,
+        })
         alert("Inicio de sesión exitoso.");
         navigate("/dispositivos");
       } else {

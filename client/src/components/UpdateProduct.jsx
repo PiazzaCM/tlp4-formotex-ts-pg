@@ -7,7 +7,7 @@ import LoadingButton from "./LoadingButtom";
 import { UserContext } from "../context/UserContext";
 import { useParams } from "react-router-dom";
 
-function CreateProductForm({setEquipamiento}) {
+function UpdateProductForm({equipamiento, setEquipamiento}) {
   
   const { userState: { token }} = useContext(UserContext);
 
@@ -18,12 +18,7 @@ function CreateProductForm({setEquipamiento}) {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [form, setForm] = useState({
-    name: "",
-    status: "",
-    stock: 0,
-    availableStock: 0,
-  });
+  const [form, setForm] = useState(equipamiento);
 
   const handleChange = (e) => {
     const { target } = e;
@@ -35,11 +30,11 @@ function CreateProductForm({setEquipamiento}) {
     });
   };
 
-  const createProduct = async () => {
+  const updateProduct = async () => {
     setLoading(true);
     
-    const peticion = await fetch(`http://localhost:3000/api/products/${id}`, {
-      method: "POST",
+    const peticion = await fetch(`http://localhost:3000/api/products/${equipamiento.id_producto}`, {
+      method: "PUT",
       body: JSON.stringify(form),
       headers: {
         'content-type': 'application/json',
@@ -53,9 +48,9 @@ function CreateProductForm({setEquipamiento}) {
     if (peticion.ok) {
       Toast.fire({
         icon: 'success',
-        title: 'Producto creado con éxito'
+        title: 'Producto actualizado con éxito'
       });
-      setEquipamiento(valorPrevio => [...valorPrevio, payload]);
+      setEquipamiento(prevEquipamiento => prevEquipamiento.map(equipamiento => equipamiento.id_producto === payload.id_producto ? payload : equipamiento));
       return handleClose();
     }
   };
@@ -64,12 +59,12 @@ function CreateProductForm({setEquipamiento}) {
     <>
       <a className="nav-link" onClick={handleShow}>
         {" "}
-        Crear Equipamiento{" "}
+        Editar{" "}
       </a>
 
       <Modal dialogClassName="modal-xl" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Equipamiento</Modal.Title>
+          <Modal.Title>Actualizar Equipamiento</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -126,8 +121,8 @@ function CreateProductForm({setEquipamiento}) {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button type="button" className="customBtn" variant="primary" onClick={createProduct}>
-            {loading ? <LoadingButton /> : "Crear Dispositivo"}
+          <Button type="button" className="customBtn" variant="primary" onClick={updateProduct}>
+            {loading ? <LoadingButton /> : "Actualizar Dispositivo"}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -135,4 +130,4 @@ function CreateProductForm({setEquipamiento}) {
   );
 }
 
-export default CreateProductForm;
+export default UpdateProductForm;

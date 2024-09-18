@@ -6,16 +6,13 @@ import { Toast } from "./Toast";
 import LoadingButton from "./LoadingButtom";  
 import { UserContext } from "../context/UserContext";
 
-function CreateOrganizationForm({setOrganizations}) {
+function UpdateOrganizationForm({org, setOrganizations}) {
 
   const { userState: { token } } = useContext(UserContext);
 
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-  });
+  const [form, setForm] = useState(org);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,8 +27,8 @@ function CreateOrganizationForm({setOrganizations}) {
   const createOrganization = async () => {
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:3000/api/organizations", {
-        method: "POST",
+      const response = await fetch(`http://localhost:3000/api/organizations/${org.id_organizacion}` , {
+        method: "PUT",
         body: JSON.stringify(form),
         headers: {
           "Content-Type": "application/json",
@@ -43,21 +40,21 @@ function CreateOrganizationForm({setOrganizations}) {
       if (response.ok) {
         Toast.fire({
           icon: 'success',
-          title: 'Organización creada con éxito'
+          title: 'Organización actualizada con éxito'
         });
-        setOrganizations(prev => [...prev, payload]);
+        setOrganizations(prevOrgs => prevOrgs.map(org => org.id_organizacion === payload.id_organizacion ? payload : org));
         handleClose();
       } else {
         Toast.fire({
           icon: 'error',
-          title: 'Error al crear organización'
+          title: 'Error al actualizar organización'
         });
       }
     } catch (err) {
       console.log(err)
       Toast.fire({
         icon: 'error',
-        title: 'Error al crear organización'
+        title: 'Error al actualizar organización'
       });
     } finally {
       setLoading(false);
@@ -67,12 +64,12 @@ function CreateOrganizationForm({setOrganizations}) {
   return (
     <>
       <a className="nav-link" onClick={handleShow}>
-        Crear Organización
+        Editar
       </a>
 
       <Modal dialogClassName="modal-xl" show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Crear Organización</Modal.Title>
+          <Modal.Title>Actualizar Organización</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -100,7 +97,7 @@ function CreateOrganizationForm({setOrganizations}) {
         </Modal.Body>
         <Modal.Footer>
           <Button type="button" className="customBtn" variant="primary" onClick={createOrganization}>
-            {loading ? <LoadingButton /> : "Crear Organización"}
+            {loading ? <LoadingButton /> : "Actualizar Organización"}
           </Button>
         </Modal.Footer>
       </Modal>
@@ -108,4 +105,4 @@ function CreateOrganizationForm({setOrganizations}) {
   );
 }
 
-export default CreateOrganizationForm;
+export default UpdateOrganizationForm;

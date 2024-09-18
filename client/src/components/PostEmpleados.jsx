@@ -5,15 +5,15 @@ import Modal from 'react-bootstrap/Modal';
 import { Toast } from './Toast';
 import { UserContext } from '../context/UserContext';
 
-const PostEmpleados = () => {
-  const { userState: { token }, setEmployees } = useContext(UserContext);
+const PostEmpleados = ({setEmpleados}) => {
+  const { userState: { token } } = useContext(UserContext);
   const [show, setShow] = useState(false);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     username: "",  
     email: "",
     password: "",
-    id_rol: "" 
+    id_rol: "1" 
   });
 
   const handleClose = () => setShow(false);
@@ -47,7 +47,7 @@ const PostEmpleados = () => {
           icon: 'success',
           title: 'Empleado creado con éxito'
         });
-        setEmployees(valorPrevio => [...valorPrevio, payload]);
+        setEmpleados(valorPrevio => [...valorPrevio, payload]);
         handleClose();
       } else {
         Toast.fire({

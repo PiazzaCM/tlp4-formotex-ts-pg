@@ -5,21 +5,23 @@ import { ProductosModel } from "../models/product.model";
 class ProductService {
   async create(product: Product, id_organizacion: number) {
 
-    console.log({...product, id_organizacion})
     return await ProductosModel.create({...product, id_organizacion});
   }
 
-  async getAll(id_usuario: number) {
-    return await ProductosModel.findAll({include: [{
-      model: OrganizacionModel,
+  async getPorOrganizacion(id_organizacion: number) {
+    return await ProductosModel.findAll({
       where: {
-        id_usuario
-      }
-    }]});
+        id_organizacion
+      }});
   }
 
+  async getAll() {
+    return await ProductosModel.findAll({include: [OrganizacionModel]});
+  }
+
+
   async getById(id: string) {
-    return await ProductosModel.findByPk(id);
+    return await ProductosModel.findByPk(id, {include: [OrganizacionModel]});
   }
 
   async update(id: string, product: Product) {

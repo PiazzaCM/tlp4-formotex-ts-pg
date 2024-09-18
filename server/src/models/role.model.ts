@@ -36,12 +36,10 @@ RolModel.init({
 // Relación entre RolModel y UserModel
 RolModel.hasMany(UserModel, {
     foreignKey: 'id_rol',
-    as: 'usuarios'
 });
 
 UserModel.belongsTo(RolModel, {
     foreignKey: 'id_rol',
-    as: 'rol'
 });
 
 sequelize.sync().then(() => {

@@ -9,6 +9,8 @@ ProductRouter.post('/products/:id_organizacion', validarJWT, ProductController.c
 
 ProductRouter.get('/products', validarJWT, ProductController.getAll);
 
+ProductRouter.get('/products/organizations/:id_organizacion', validarJWT, ProductController.getAllPorOrganizacion);
+
 ProductRouter.get('/products/:id', validarJWT, ProductController.getById);
 
 ProductRouter.put('/products/:id', validarJWT, ProductController.update);

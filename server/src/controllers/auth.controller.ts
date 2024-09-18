@@ -7,9 +7,12 @@ export const register = async (req: Request, res: Response) => {
   try {
     const hashedPassword = await authService.hashPassword(password);
 
-    await authService.register({ username, email, password: hashedPassword, id_rol });
+    const user = await authService.register({ username, email, password: hashedPassword, id_rol });
 
-    return res.json({ message: "Usuario creado correctamente" });
+    return res.json({
+      ...user.dataValues,
+      password: null,
+    });
   } catch (error) {
     console.log(error);
     return res.status(500).json(error);

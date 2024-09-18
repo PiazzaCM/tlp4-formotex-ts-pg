@@ -5,14 +5,14 @@ import { validarJWT } from "../middlewares/validarJWT";
 
 const OrganizationRouter = Router();
 
-OrganizationRouter.post("/organization", validarJWT, OrganizationController.create);
+OrganizationRouter.post("/organizations", validarJWT, OrganizationController.create);
 
-OrganizationRouter.get("/organization", validarJWT, OrganizationController.getAll);
+OrganizationRouter.get("/organizations", validarJWT, OrganizationController.getAll);
 
-OrganizationRouter.get("/organization/:id", validarJWT, OrganizationController.getById);
+OrganizationRouter.get("/organizations/:id", validarJWT, OrganizationController.getById);
 
-OrganizationRouter.put("/organization/:id", validarJWT, OrganizationController.update);
+OrganizationRouter.put("/organizations/:id", validarJWT, OrganizationController.update);
 
-OrganizationRouter.delete("/organization/:id", validarJWT, OrganizationController.delete);
+OrganizationRouter.delete("/organizations/:id", validarJWT, OrganizationController.delete);
 
 export { OrganizationRouter };

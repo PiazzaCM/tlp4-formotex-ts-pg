@@ -20,11 +20,20 @@ class ProductController {
 
   async getAll(req: Request, res: Response) {
 
-    //@ts-ignore
-    const { id_usuario } = req.user
+    try {
+      const products = await productService.getAll();
+      res.status(200).json(products);
+    } catch (error) {
+      res.status(400).json(error);
+    }
+  }
+ 
+  async getAllPorOrganizacion(req: Request, res: Response) {
+
+    const { id_organizacion } = req.params;
 
     try {
-      const products = await productService.getAll(id_usuario);
+      const products = await productService.getPorOrganizacion(parseInt(id_organizacion));
       res.status(200).json(products);
     } catch (error) {
       res.status(400).json(error);
@@ -43,7 +52,8 @@ class ProductController {
   async update(req: Request, res: Response) {
     try {
       const product = await productService.update(req.params.id, req.body);
-      res.status(200).json(product);
+      const productUpdated = await productService.getById(req.params.id);
+      res.status(200).json(productUpdated);
     } catch (error) {
       res.status(400).json(error);
     }

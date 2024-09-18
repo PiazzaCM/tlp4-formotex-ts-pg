@@ -1,4 +1,4 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize } from 'sequelize';
 import { URI } from '../config/conf';
 
 export const sequelize = new Sequelize(URI);

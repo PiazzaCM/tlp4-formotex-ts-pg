@@ -48,7 +48,7 @@ class AuthService {
 
   async getEmployeesByRole(roleId: number) {
     return await UserModel.findAll({
-      attributes: ['username', 'email'],
+      attributes: ['id_usuario', 'username', 'email'],
       where: {
         id_rol: roleId
       }
